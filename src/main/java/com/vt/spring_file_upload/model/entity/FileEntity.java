@@ -23,11 +23,14 @@ public class FileEntity extends BaseEntity {
     @Column(nullable = false)
     private String originalName;
 
+    @Column(nullable = false)
+    private String url;
+
     @Column(nullable = false, length = 20)
     private String type;
 
     @Column(nullable = false)
-    private Long size;
+    private Long size = 0L;
 
     @Override
     public final boolean equals(Object o) {

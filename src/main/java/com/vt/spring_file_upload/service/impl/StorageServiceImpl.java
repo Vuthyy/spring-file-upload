@@ -26,7 +26,7 @@ public class StorageServiceImpl implements StorageService {
     private static final String FILE_PATH = System.getProperty("user.dir") + "/files";
 
     @Override
-    public void upload(MultipartFile file) {
+    public String upload(MultipartFile file) {
         if (file.getSize() <= 0) throw new BadRequestException("No file provided!");
 
         String filename = UUID.randomUUID().toString();
@@ -40,7 +40,11 @@ public class StorageServiceImpl implements StorageService {
             if (Files.notExists(pth))
                 Files.createDirectories(pth);
 
-            file.transferTo(pth.resolve(filename + extension));
+            String fullName = filename + extension;
+
+            file.transferTo(pth.resolve(fullName));
+
+            return fullName;
         } catch (Exception ex) {
             throw new InternalServerErrorException(ex.getMessage());
         }

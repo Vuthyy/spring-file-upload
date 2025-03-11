@@ -19,26 +19,26 @@ public class RestExceptionController extends ResponseEntityExceptionHandler {
     @Override
     protected ResponseEntity<Object> handleExceptionInternal(Exception ex, Object body, HttpHeaders
             headers, HttpStatusCode statusCode, WebRequest request) {
-        return BaseBodyResponse.failed(ex.getMessage(), statusCode);
+        return BaseBodyResponse.internalFailed(ex.getMessage(), statusCode);
     }
 
     @ExceptionHandler(value = {Exception.class, InternalServerErrorException.class})
-    public ResponseEntity<Object> handleException(Exception ex) {
+    public ResponseEntity<BaseBodyResponse> handleException(Exception ex) {
         return BaseBodyResponse.failed(ex.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
     @ExceptionHandler(value = BadRequestException.class )
-    public ResponseEntity<Object> handleException(BadRequestException ex) {
+    public ResponseEntity<BaseBodyResponse> handleException(BadRequestException ex) {
         return BaseBodyResponse.failed(ex.getMessage(), HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler(value = NotFoundException.class )
-    public ResponseEntity<Object> handleException(NotFoundException ex) {
+    public ResponseEntity<BaseBodyResponse> handleException(NotFoundException ex) {
         return BaseBodyResponse.failed(ex.getMessage(), HttpStatus.NOT_FOUND);
     }
 
     @ExceptionHandler(value = ConflictException.class )
-    public ResponseEntity<Object> handleException(ConflictException ex) {
+    public ResponseEntity<BaseBodyResponse> handleException(ConflictException ex) {
         return BaseBodyResponse.failed(ex.getMessage(), HttpStatus.CONFLICT);
     }
 }

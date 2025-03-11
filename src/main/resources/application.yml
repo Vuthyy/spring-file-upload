@@ -10,14 +10,14 @@ spring:
       max-request-size: 10MB
 
   datasource:
-    url: jdbc:postgresql://localhost:5432/file-upload
-    username: spring-file-upload
-    password: thy168
-    driver-class-name: org.postgresql.Driver
+    url: jdbc:h2:mem:file-upload
+    username: sa
+    password:
+    driverClassName: org.h2.Driver
 
-    jpa:
-      properties:
-        hibernate:
-          dialect: org.hibernate.dialect.PostgreSQLDialect
-      hibernate:
-        ddl-auto: update
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+
+  h2:
+    console:
+      enabled: true
